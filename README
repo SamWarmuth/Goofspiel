@@ -1,0 +1,3 @@
+Should eventually become a full library for dealing with card games, with deck manipulation, a few different scoring methods, etc.
+
+Right now, I'm getting it to work with GOPS (http://en.wikipedia.org/wiki/Goofspiel).
