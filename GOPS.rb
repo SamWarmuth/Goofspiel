@@ -1,0 +1,1 @@
+#GOPS code goes here? Probably an engine that allows players to input their play when certain events happen. This way I can do some work on kent.
