@@ -33,17 +33,23 @@ class Card
   def initialize(input)
     case input.class.to_s
     when "Fixnum"
-        @suit = input/13
-        @value = input%13 + 2
+      raise "input error" if ((input < 0)||(input > 51))
+      @suit = input/13
+      @value = input%13 + 2
     when "String"
+      raise "input error" if ((input.length > 2)||(input.length == 0))
       @suit = Suits.map{|s| s[0,1].downcase}.index(input[1,1].downcase)
+      raise "suit not found" if @suit.nil?
       @value = case input[0,1].downcase
       when "a"; 14
       when "k"; 13
       when "q"; 12
       when "j"; 11
       when "t"; 10
-      else; input[0,1].to_i
+      else
+        value = input[0,1].to_i
+        raise "input error" unless ((value >= 2)&&(value <= 14))
+        @value = value
       end
     else return nil
     end
@@ -78,16 +84,22 @@ class Card
 end
 
 class Player
-  attr_accessor :hand, :name
+  attr_accessor :hand, :name, :score
   attr_reader :id, :rank, :top_hand
   def initialize(name="Player",cards=[])
     @name = name
     @hand = cards
+    @score = 0 #money, chips, points, etc. *Not* rank
     @id = (Time.now.to_f % 100000 * 10000).to_i
   end
   def add_cards(*cards)
     cards = Array(cards)
-    @hand += cards
+    case cards.first.class.to_s
+    when "Card"
+      @hand += cards
+    when "String"
+      cards.each{|c| @hand << Card.new(c)}
+    end
     find_rank
   end
   def draw(number, deck)
@@ -97,10 +109,13 @@ class Player
   def discard(card)
     case card.class.to_s
     when "String"
-      drawn = @hand.select{|c| c.to_s.downcase == card.downcase}
-      @hand.delete(drawn)
-      return drawn
+      @hand.delete_if{|c| c.to_s.downcase == card.downcase}
+      rank
+    when "Card"
+      @hand.delete_if{|c| c == card}
+      rank
     end
+    @hand
   end
   def sort_by(tag)
     #case tag
@@ -131,7 +146,7 @@ class Player
     elsif !flush.nil?
       @top_hand = flush[0,5]
       @rank = "Flush"
-    elsif !nil.nil?
+    elsif !nil.nil? #Ugh.
       puts " (Straight) Not Implemented."
     elsif !three.nil?
       @top_hand = three
