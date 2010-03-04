@@ -67,6 +67,7 @@ class Card
   end
   def pretty
     pretty_val = case @value
+    when 14; "Ace"
     when 13; "King"
     when 12; "Queen"
     when 11; "Jack"
