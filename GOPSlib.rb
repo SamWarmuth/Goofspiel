@@ -61,7 +61,7 @@ class GOPS
     !@current_bids.select{|c| c.suit == hand[0].suit}.empty?
   end
   def score(player)
-    won(player).inject{|sum,card| sum + card.value}
+    won(player).inject(0){|sum,card| sum + card.value}
   end
   def finished?
     @deck.empty? ? true : false
