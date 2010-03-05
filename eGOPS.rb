@@ -71,10 +71,13 @@ end
 __END__
 @@layout
 !!!
-=yield
+%title Goofspiel.com
+%body
+  =yield
 
 @@welcome
 %h1 Welcome to Goofspiel
+%a{:href => "http://en.wikipedia.org/wiki/Goofspiel" :style => "font-size: 50%"} (what's Goofspiel?)
 %form{:method => "POST", :action => "/"}
   %label Please choose a username:
   %input{:name => "name", :value => "", :type => "text", :size => "20"}
