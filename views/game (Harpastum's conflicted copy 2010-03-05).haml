@@ -15,7 +15,6 @@
       = prettify(last_card.to_s[0,1])
     .suit
       = prettify(last_card.suit[0,1])
-  .spacer
 -unless @game.won(@other_player).last.nil?
   Won
   - (@game.won(@other_player).length-1).times do
@@ -32,6 +31,7 @@
   .spacer
 
 %p 
+  Bidding on:
   -unless @game.deck.empty?
     .back{:style => "margin: 0"}
       .pattern
