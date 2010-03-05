@@ -4,9 +4,9 @@
 -unless my_games.empty?
   %h2{:style => "margin-bottom: -10px"} Your Games
   %p
-    -my_games.each do |game|
-      %a{:href => "/game/#{game.id}/#{@player.id}"}
-        Game Against 
-        =game.players.keys.reject{|p| p == @player}.first.name
+    -my_games.sort_by{|g| g.date_created}.each do |game|
+      %p
+        %a{:href => "/game/#{game.id}/#{@player.id}"} Game Against #{game.players.keys.reject{|p| p == @player}.first.name}
+        (#{game.date_created.strftime("%b %d %l:%M%p")})
 %p
   %a{:href => "/new-game/#{@player.id}"} New Game

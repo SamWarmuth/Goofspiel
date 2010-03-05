@@ -1,3 +1,5 @@
+%a{:href => "/dashboard/#{@player.id}"} Return to Dashboard
+%br
 -if @game.score(@player) > @game.score(@other_player)
   %h1 Congratulations, you won!
 -elsif @game.score(@player) < @game.score(@other_player)

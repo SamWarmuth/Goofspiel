@@ -2,8 +2,9 @@ require 'cards'
 
 class GOPS
   attr_accessor :deck, :players
-  attr_reader :bid_card, :current_bids, :id
+  attr_reader :bid_card, :current_bids, :id, :date_created
   def initialize(player1, player2)
+    @date_created = Time.now
     @id = (Time.now.to_f % 100000 * 10000).to_i
     @deck = Deck.new
     @players = {player1 => "Diamonds", player2 => "Hearts"}
