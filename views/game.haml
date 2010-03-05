@@ -3,35 +3,39 @@
   \-
   #{@player.name} vs #{@other_player.name}
 -unless @game.last_bid(@other_player).nil?
-  Used
-  - (@game.played(@other_player).length-1).times do
-    .back{:style => "margin-right: -72px"}
-      .pattern
-  -last_card = @game.last_bid(@other_player)
-  .card{:style => "color: #{font_color(last_card)}"}
-    .top_val
-      = prettify(last_card.to_s[0,1])
-    .bot_val
-      = prettify(last_card.to_s[0,1])
-    .suit
-      = prettify(last_card.suit[0,1])
-  .spacer
+  .box{:style => "float:left"}
+    Used
+    %br
+    - (@game.played(@other_player).length-1).times do
+      .back{:style => "margin-right: -72px"}
+        .pattern
+    -last_card = @game.last_bid(@other_player)
+    .card{:style => "color: #{font_color(last_card)}"}
+      .top_val
+        = prettify(last_card.to_s[0,1])
+      .bot_val
+        = prettify(last_card.to_s[0,1])
+      .suit
+        = prettify(last_card.suit[0,1])
+    .spacer
 -unless @game.won(@other_player).last.nil?
-  Won
-  - (@game.won(@other_player).length-1).times do
-    .back{:style => "margin-right: -72px"}
-      .pattern
-  -last_won = @game.won(@other_player).last
-  .card{:style => "color: #{font_color(last_won)}"}
-    .top_val
-      = prettify(last_won.to_s[0,1])
-    .bot_val
-      = prettify(last_won.to_s[0,1])
-    .suit
-      = prettify(last_won.suit[0,1])  
-  .spacer
-
-%p 
+  .box{:style => "float:left"}
+    Won
+    %br
+    - (@game.won(@other_player).length-1).times do
+      .back{:style => "margin-right: -72px"}
+        .pattern
+    -last_won = @game.won(@other_player).last
+    .card{:style => "color: #{font_color(last_won)}"}
+      .top_val
+        = prettify(last_won.to_s[0,1])
+      .bot_val
+        = prettify(last_won.to_s[0,1])
+      .suit
+        = prettify(last_won.suit[0,1])  
+    .spacer
+.deck
+  %br
   -unless @game.deck.empty?
     .back{:style => "margin: 0"}
       .pattern
@@ -73,6 +77,7 @@
   -unless @game.played(@player).empty?
     .box{:style => "float:left"}
       Used
+      %br
       -@game.played(@player).each do |card|
         .card{:style => "color: #{font_color(card)}"}
           .top_val
@@ -85,6 +90,7 @@
   -unless @game.won(@player).empty?
     .box{:style => "float:left"}
       Won
+      %br
       -@game.won(@player).each do |card|
         .card{:style => "color: #{font_color(card)}"}
           .top_val

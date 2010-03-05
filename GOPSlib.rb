@@ -47,7 +47,11 @@ class GOPS
     bids = @current_bids.sort_by{|c| c.value}.reverse
     if bids[0].value == bids[1].value
       @current_bids.clear
-      @bid_card << @deck.draw
+      if @deck.empty?
+        @bid_card.clear
+      else
+        @bid_card << @deck.draw
+      end
     else
       winning_card = bids.first
       @current_bids.clear
