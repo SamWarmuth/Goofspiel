@@ -105,7 +105,7 @@ __END__
 
 @@game
 %h3 #{@player.name}, you're playing against #{@other_player.name}
-%h2 (Last Hand, #{@other_player.name} bid #{@game[@other_player].played.last})
+%h2 (Last Hand, #{@other_player.name} bid #{@game.played(@other_player).last})
 %p Bidding on: #{@game.bid_card.join(" ")}
 %p
   -if @game.already_bid?(@player)
