@@ -1,0 +1,12 @@
+%h2 Hi there #{@player.name}
+= "You're waiting for someone to play with." if $meet.include?(@player.id)
+-my_games = $games.values.select{|g| g.players.keys.include?(@player)}
+-unless my_games.empty?
+  %h2 Your Games
+  %p
+    -my_games.each do |game|
+      %a{:href => "/game/#{game.id}/#{@player.id}"}
+        Game Against 
+        =game.players.keys.reject{|p| p == @player}.first.name
+%p
+  %a{:href => "/new-game/#{@player.id}"} New Game

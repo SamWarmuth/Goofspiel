@@ -1,10 +1,19 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
+require 'sass'
 require 'GOPSlib'
+
 $players = {}
 $games = {}
 $meet = []
+
+before do headers "Content-Type" => "text/html; charset=utf-8" end
+
+get '/style.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :style, {:style => :compressed }
+end
 
 get '/' do
   @players = $players.values
@@ -68,75 +77,20 @@ get '/game/:game_id/:player/:card' do
   redirect "/game/#{game.id}/#{player.id}"
 end
 
-
-
-__END__
-@@layout
-!!!
-%title Goofspiel.com
-%body
-  =yield
-
-@@welcome
-%h1
-  Welcome to Goofspiel
-  %a{:href => "http://en.wikipedia.org/wiki/Goofspiel" :style => "font-size: 50%"} (what's Goofspiel?)
-%form{:method => "POST", :action => "/"}
-  %label Please choose a username:
-  %input{:name => "name", :value => "", :type => "text", :size => "20"}
-%h2 Current Players:
-%p
-  =@players.map{|p| p.name}.join("\n")
-
-@@dashboard
-%h2 Hi there #{@player.name}
-= "You're waiting for someone to play with." if $meet.include?(@player.id)
--my_games = $games.values.select{|g| g.players.keys.include?(@player)}
--unless my_games.empty?
-  %h2 Your Games
-  %p
-    -my_games.each do |game|
-      %a{:href => "/game/#{game.id}/#{@player.id}"}
-        Game Against 
-        =game.players.keys.reject{|p| p == @player}.first.name
-      
-%p
-  %a{:href => "/new-game/#{@player.id}"} New Game
-
-@@game
-%h3 #{@player.name}, you're playing against #{@other_player.name}
-%h2 (Last Hand, #{@other_player.name} bid #{@game.played(@other_player).last})
-%p Bidding on: #{@game.bid_card.join(" ")}
-%p
-  -if @game.already_bid?(@player)
-    Waiting for #{@other_player.name}'s bid
-    %br
-    Your Cards:
-    %br
-    = @game.hand(@player).join(" ")
-  -else
-    Your Cards:
-    %br
-    -@game.hand(@player).each do |card|
-      %a{:href => "/game/#{@game.id}/#{@player.id}/#{card.to_s}"}= card.to_s
-  -unless @game.played(@player).empty?
-    %p
-      So far, you've played:
-      =@game.played(@player).join(" ")
-  -unless @game.won(@player).empty?
-    %p
-      So far, you've won:
-      =@game.won(@player).join(" ")
-      
-      
-@@game_completed
--if @game.score(@player) > @game.score(@other_player)
-  %h1 Congratulations, you won!
--elsif @game.score(@player) < @game.score(@other_player)
-  %h1 Better luck next time.
--else
-  %h1 Like kissing your <i>Sister</i>.
-%h2 #{@player.name}: #{@game.score(@player)}
-%h2 #{@other_player.name}: #{@game.score(@other_player)}
-
-  
+helpers do
+  def prettify(card)
+    card.gsub("S", "&spades;").gsub("C", "&clubs;").gsub("H", "&hearts;").gsub("D", "&diams;").gsub("T", "10")
+  end
+  def font_color(card)
+    return case card.suit
+    when "Hearts"
+      "red"
+    when "Diamonds"
+      "red"
+    when "Spades"
+      "black"
+    when "Clubs"
+      "black"
+    end
+  end
+end

@@ -1,0 +1,8 @@
+-if @game.score(@player) > @game.score(@other_player)
+  %h1 Congratulations, you won!
+-elsif @game.score(@player) < @game.score(@other_player)
+  %h1 Better luck next time.
+-else
+  %h1 Like kissing your <i>Sister</i>.
+%h2 #{@player.name}: #{@game.score(@player)}
+%h2 #{@other_player.name}: #{@game.score(@other_player)}

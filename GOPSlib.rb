@@ -52,8 +52,14 @@ class GOPS
       winning_card = bids.first
       @current_bids.clear
       @won[winning_card.suit].hand += @bid_card
+      @bid_card = nil
       @bid_card = Array(@deck.draw) unless @deck.empty?
     end
+  end
+  def last_bid(player)
+    return nil if played(player).last.nil?
+    return played(player).last unless @current_bids.include?(played(player).last)
+    return played(player)[-2]
   end
   def already_bid?(player)
     hand = @played[@players[player]].hand
@@ -64,6 +70,6 @@ class GOPS
     won(player).inject(0){|sum,card| sum + card.value}
   end
   def finished?
-    @deck.empty? ? true : false
+    (@deck.empty?&&@bid_card.nil?) ? true : false
   end
 end
