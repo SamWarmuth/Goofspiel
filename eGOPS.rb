@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'base64'
 require 'GOPSlib'
 $players = {}
 $games = {}
