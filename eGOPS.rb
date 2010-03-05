@@ -105,6 +105,7 @@ __END__
 
 @@game
 %h3 #{@player.name}, you're playing against #{@other_player.name}
+%h2 (Last Hand, #{@other_player.name} bid #{@game(@other_player).played.last})
 %p Bidding on: #{@game.bid_card.join(" ")}
 %p
   -if @game.already_bid?(@player)
@@ -118,10 +119,15 @@ __END__
     %br
     -@game.hand(@player).each do |card|
       %a{:href => "/game/#{@game.id}/#{@player.id}/#{card.to_s}"}= card.to_s
+  -unless @game.played(@player).empty?
+    %p
+      So far, you've played:
+      =@game.played(@player).join(" ")
   -unless @game.won(@player).empty?
     %p
       So far, you've won:
-      =@game.won(@player).join(" ") 
+      =@game.won(@player).join(" ")
+      
       
 @@game_completed
 -if @game.score(@player) > @game.score(@other_player)
