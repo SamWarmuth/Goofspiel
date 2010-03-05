@@ -100,11 +100,11 @@ class Player
     when "String"
       cards.each{|c| @hand << Card.new(c)}
     end
-    find_rank
+    #find_rank BROKEN with heroku ruby
   end
   def draw(number, deck)
     number.times{@hand << deck.draw}
-    find_rank
+    #find_rank BROKEN with heroku ruby
   end
   def discard(card)
     case card.class.to_s
