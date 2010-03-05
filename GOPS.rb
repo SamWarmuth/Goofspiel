@@ -1,4 +1,5 @@
 require 'cards'
+
 deck = Deck.new
 players = {"Diamonds" => Player.new("Diamonds"), "Hearts" => Player.new("Hearts")}
 
