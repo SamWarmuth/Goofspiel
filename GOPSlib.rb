@@ -60,10 +60,10 @@ class GOPS
     hand = @hands[@players[player]].hand if hand.empty? #one of these will have a card
     !@current_bids.select{|c| c.suit == hand[0].suit}.empty?
   end
-  def player_score(player)
+  def score(player)
     won(player).inject{|sum,card| sum + card.value}
   end
-  def game_finished?
+  def finished?
     @deck.empty? ? true : false
   end
 end

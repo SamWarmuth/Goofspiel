@@ -32,8 +32,6 @@ get '/dashboard/:id' do
   haml :dashboard
 end
 
-
-
 get '/new-game/:player' do
   player = $players[params[:player].to_i]
   if $meet.empty?
@@ -53,7 +51,11 @@ get '/game/:game_id/:player' do
   @player = $players[params[:player].to_i]
   @other_player = @game.players.keys.reject{|p| p == @player}.first
   if @game&&@player&&@other_player
-    haml :game
+    if @game.finished?
+      haml :game_completed
+    else
+      haml :game
+    end
   else
     return "game/player/opponent not found. Sorry."
   end
@@ -76,8 +78,9 @@ __END__
   =yield
 
 @@welcome
-%h1 Welcome to Goofspiel
-%a{:href => "http://en.wikipedia.org/wiki/Goofspiel" :style => "font-size: 50%"} (what's Goofspiel?)
+%h1
+  Welcome to Goofspiel
+  %a{:href => "http://en.wikipedia.org/wiki/Goofspiel" :style => "font-size: 50%"} (what's Goofspiel?)
 %form{:method => "POST", :action => "/"}
   %label Please choose a username:
   %input{:name => "name", :value => "", :type => "text", :size => "20"}
@@ -102,7 +105,7 @@ __END__
 
 @@game
 %h3 #{@player.name}, you're playing against #{@other_player.name}
-%p  Bidding on: #{@game.bid_card.join(" ")}
+%p Bidding on: #{@game.bid_card.join(" ")}
 %p
   -if @game.already_bid?(@player)
     Waiting for #{@other_player.name}'s bid
@@ -119,3 +122,15 @@ __END__
     %p
       So far, you've won:
       =@game.won(@player).join(" ") 
+      
+@@game_completed
+-if @game.score(@player) > @game.score(@other_player)
+  %h1 Congratulations, you won!
+-elsif @game.score(@player) < @game.score(@other_player)
+  %h1 Better luck next time.
+-else
+  %h1 Like kissing your <i>Sister</i>.
+%h2 #{@player.name}: #{@game.score(@player)}
+%h2 #{@other_player.name}: #{@game.score(@other_player)}
+
+  
