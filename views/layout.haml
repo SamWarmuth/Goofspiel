@@ -8,7 +8,7 @@
 %script{:type => "text/javascript", :src => "/scripts/game.js"}
 %head
   -path = request.path_info.downcase
-  -if path.include?("game")||path.include?("dashboard")
+  -if (@reload&&(path.include?("game")||path.include?("dashboard")))
     <META HTTP-EQUIV="refresh" CONTENT="5">
 %body
   =yield

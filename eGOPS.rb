@@ -31,6 +31,7 @@ post '/' do
 end
 
 get '/dashboard/:id' do
+  @reload = true
   @player = $players[params[:id].to_i]
   if @player
     games = $games.values
@@ -58,11 +59,14 @@ end
 get '/game/:game_id/:player' do
   @game = $games[params[:game_id].to_i]
   @player = $players[params[:player].to_i]
-  @other_player = @game.players.keys.reject{|p| p == @player}.first
-  if @game&&@player&&@other_player
+  @other_player = @game.players.keys.reject{|p| p == @player}.first if @player
+
+  if @game && @player && @other_player
     if @game.finished?
+      @reload = false
       haml :game_completed
     else
+      @reload = @game.already_bid?(@player)
       haml :game
     end
   else

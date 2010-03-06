@@ -28,11 +28,16 @@ body
   display: inline-block
   position: relative
   margin-right: -40px
-  .link
-    z-index: 100
-    display: block 
-    height: 100%
-    width: 100%
+  .pattern
+    +rounded-corners(5px)
+    position: relative
+    top: 5px
+    left: 5px
+    height: 80px
+    width: 51.5px
+    
+    padding: 5px
+    background-color: #0CC
   .top_val
     position: absolute
     top: 2px
@@ -48,23 +53,22 @@ body
     top: 21px
     left: 16px
     font-size: 250%
+.link
+  +rounded-corners(5px)
+  z-index: 10
+  height: 100px
+  width: 71.5px
+  display: inline-block
+  position: relative
+  margin-right: -71.5px
 
-.back
+.placeholder
   +rounded-corners(5px)
   height: 100px
   width: 71.5px
   background-color: #FFF
-  border: 1px solid #CCC
+  border: 1px dashed #555
   display: inline-block
   position: relative
   margin-right: -40px
-  .pattern
-    +rounded-corners(5px)
-    position: relative
-    top: 5px
-    left: 5px
-    height: 80px
-    width: 51.5px
-    
-    padding: 5px
-    background-color: #0CC
+  opacity: .4

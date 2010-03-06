@@ -6,5 +6,21 @@
   %h1 Better luck next time.
 -else
   %h1 Like kissing your <i>Sister</i>.
+-@game.won(@player).sort.each do |card|
+  .card{:style => "color: #{font_color(card)}"}
+    .top_val
+      =prettify(card.to_s[0,1])
+    .bot_val
+      =prettify(card.to_s[0,1])
+    .suit
+      =prettify(card.suit[0,1])
 %h2 #{@player.name}: #{@game.score(@player)}
 %h2 #{@other_player.name}: #{@game.score(@other_player)}
+-@game.won(@other_player).sort.each do |card|
+  .card{:style => "color: #{font_color(card)}"}
+    .top_val
+      =prettify(card.to_s[0,1])
+    .bot_val
+      =prettify(card.to_s[0,1])
+    .suit
+      =prettify(card.suit[0,1])
