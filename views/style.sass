@@ -3,46 +3,58 @@
   -moz-border-radius = !amount
   -webkit-border-radius = !amount
 
+body
+  font-family: "Trebuchet MS"
+  background-color: #CDE9FF
+
 .spacer
   display: inline-block
   margin: 0 40px
+.glass
+  float: left
+  height: 100%
+  width: 100%
+  background-color: #555
 
 .deck
   clear: both
 .card
   +rounded-corners(5px)
+  z-index: 0
   height: 100px
   width: 71.5px
   background-color: #FFE
-  border: 1px solid black
+  border: 1px solid #CCC
   display: inline-block
   position: relative
   margin-right: -40px
   .link
+    z-index: 100
     display: block 
     height: 100%
     width: 100%
   .top_val
     position: absolute
-    top: 2%
-    left: 5%
+    top: 2px
+    left: 5px
   .bot_val
     position: absolute
-    text-align: right
-    bottom: 2%
-    right: 5%
+    bottom: 2px
+    right: 3px
   .suit
+    z-index: 0
     position: absolute
-    top: 25%
-    left: 28%
-    font-size: 200%
+    text-align: center
+    top: 21px
+    left: 16px
+    font-size: 250%
 
 .back
   +rounded-corners(5px)
   height: 100px
   width: 71.5px
   background-color: #FFF
-  border: 1px solid black
+  border: 1px solid #CCC
   display: inline-block
   position: relative
   margin-right: -40px

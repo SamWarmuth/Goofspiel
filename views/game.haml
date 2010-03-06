@@ -66,13 +66,13 @@
       %b Please place a bid
       -@game.hand(@player).each do |card|
         .card{:style => "color: #{font_color(card)}"}
-          %a.link{:href => "/game/#{@game.id}/#{@player.id}/#{card.to_s}"}
           .top_val
             = prettify(card.to_s[0,1])
           .bot_val
             = prettify(card.to_s[0,1])
           .suit
             = prettify(card.suit[0,1])
+          %a.link{:href => "/game/#{@game.id}/#{@player.id}/#{card.to_s}"}
         
   -unless @game.played(@player).empty?
     .box{:style => "float:left"}
