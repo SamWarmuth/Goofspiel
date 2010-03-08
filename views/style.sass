@@ -53,7 +53,7 @@ body
     top: 21px
     left: 16px
     font-size: 250%
-.link
+a.link
   +rounded-corners(5px)
   z-index: 10
   height: 100px
@@ -61,6 +61,13 @@ body
   display: inline-block
   position: relative
   margin-right: -71.5px
+  &:hover
+    opacity: 0.25
+    background-color: #33F
+  &:active
+    opacity: 0.75
+    background-color: #33F
+  
 
 .placeholder
   +rounded-corners(5px)
