@@ -4,6 +4,8 @@
 %form{:method => "POST", :action => "/"}
   %label Please choose a username:
   %input{:name => "name", :value => "", :type => "text", :size => "20"}
+  %br
+  %input.button{:type => "submit",:action => "/", :value => "Log in / Register",:style => "width: 150px;margin-left: 200px"}
 %h2 Current Players:
 %p
   =@players.map{|p| p.name}.join("\n")

@@ -46,6 +46,8 @@ body
     position: absolute
     bottom: 2px
     right: 3px
+    -webkit-transform: rotateY(180deg)
+    -webkit-transform: rotateX(180deg)
   .suit
     z-index: 0
     position: absolute
@@ -61,14 +63,10 @@ a.link
   display: inline-block
   position: relative
   margin-right: -71.5px
-  &:hover
-    opacity: 0.25
-    background-color: #33F
-  &:active
-    opacity: 0.75
-    background-color: #33F
   
-
+.clink:hover
+  -webkit-transform: translateY(-15px)
+  -webkit-transition: -webkit-transform .5s
 .placeholder
   +rounded-corners(5px)
   height: 100px

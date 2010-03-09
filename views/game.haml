@@ -69,7 +69,7 @@
     %p
       %b Please place a bid
       -@game.hand(@player).each do |card|
-        .card{:style => "color: #{font_color(card)}"}
+        .card.clink{:style => "color: #{font_color(card)}"}
           .top_val
             = prettify(card.to_s[0,1])
           .bot_val
