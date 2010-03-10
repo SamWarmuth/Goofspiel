@@ -46,8 +46,6 @@ body
     position: absolute
     bottom: 2px
     right: 3px
-    -webkit-transform: rotateY(180deg)
-    -webkit-transform: rotateX(180deg)
   .suit
     z-index: 0
     position: absolute
@@ -63,10 +61,16 @@ a.link
   display: inline-block
   position: relative
   margin-right: -71.5px
-  
-.clink:hover
-  -webkit-transform: translateY(-15px)
-  -webkit-transition: -webkit-transform .5s
+.clink
+  -webkit-transition: all .25s ease-in-out
+  &:hover
+    -webkit-transform: translate(0,-1em)
+    -moz-transform: translate(0,-1em)
+    
+.rando
+  -webkit-transition: all .25s ease-in-out
+  -webkit-transform: translate(-6em,2em)
+  -moz-transform: translate(-6em,2em)
 .placeholder
   +rounded-corners(5px)
   height: 100px

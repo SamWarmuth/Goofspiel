@@ -30,6 +30,18 @@ post '/' do
   redirect "/dashboard/#{player.id}"
 end
 
+get '/update' do
+  @game = $games[params[:gameid].to_i]
+  @player = $players[params[:playerid].to_i]
+  #kinda backwards, but if the current player
+  #has to go, that means he should reload
+  if @game.already_bid?(@player)
+    return "false"
+  else
+    return "true"
+  end
+end
+
 get '/dashboard/:id' do
   @reload = true
   @player = $players[params[:id].to_i]
@@ -74,9 +86,9 @@ get '/game/:game_id/:player' do
   end
 end
 
-get '/game/:game_id/:player/:card' do
+get '/game/:game_id/:player_id/:card' do
   game = $games[params[:game_id].to_i]
-  player = $players[params[:player].to_i]
+  player = $players[params[:player_id].to_i]
   success = game.place_bid(player, params[:card])
   redirect "/game/#{game.id}/#{player.id}"
 end

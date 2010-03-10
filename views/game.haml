@@ -1,3 +1,10 @@
+%script{:type => "text/javascript", :src => "/scripts/game.js"}
+#playerid{:style => "display: none"}=@player.id
+#gameid{:style => "display: none"}=@game.id
+-if @game.already_bid?(@player)
+  #state{:style => "display: none"}wait
+-else 
+  #state{:style => "display: none"}bid
 %h1
   %a{:href => "/dashboard/#{@player.id}", :style => "text-decoration: none"} Goofspiel
   \-
@@ -106,3 +113,4 @@
             =prettify(card.to_s[0,1])
           .suit
             =prettify(card.suit[0,1])
+%br

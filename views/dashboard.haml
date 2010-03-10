@@ -1,5 +1,4 @@
 %h1 Hi there #{@player.name}!
-= "You're waiting for someone to play with." if $meet.include?(@player.id)
 -my_games = $games.values.select{|g| g.players.keys.include?(@player)}
 -unless my_games.empty?
   %h2{:style => "margin-bottom: -10px"} Your Games
@@ -9,4 +8,7 @@
         %a{:href => "/game/#{game.id}/#{@player.id}"} Game Against #{game.players.keys.reject{|p| p == @player}.first.name}
         (#{game.date_created.strftime("%b %d %l:%M%p")})
 %p
-  %a{:href => "/new-game/#{@player.id}"} New Game
+  -if $meet.include?(@player.id)
+    You're waiting for someone to play with.
+  -else  
+    %a{:href => "/new-game/#{@player.id}"} New Game
