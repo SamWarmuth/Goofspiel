@@ -166,7 +166,6 @@ class Player
       @top_hand << c if !@top_hand.include?(c)
     end
     return @top_hand
-
   end
   def to_s
     @name + ": " + @hand.join(" ")
