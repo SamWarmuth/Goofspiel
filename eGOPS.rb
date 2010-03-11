@@ -30,6 +30,12 @@ post '/' do
   redirect "/dashboard/#{player.id}"
 end
 
+get '/about' do
+  @game = GOPS.new(:player, :other_player)
+  
+  haml :about
+end
+
 get '/update' do
   @game = $games[params[:gameid].to_i]
   @player = $players[params[:playerid].to_i]

@@ -9,7 +9,7 @@
   %a{:href => "/dashboard/#{@player.id}", :style => "text-decoration: none"} Goofspiel
   \-
   #{@player.name} vs #{@other_player.name}
-.box{:style => "float:left"}
+.box
   Used
   %br
   -if @game.last_bid(@other_player).nil?
@@ -26,8 +26,8 @@
         = prettify(last_card.to_s[0,1])
       .suit
         = prettify(last_card.suit[0,1])
-  .spacer
-.box{:style => "float:left"}
+.spacer
+.box
   Won
   %br
   -if @game.won(@other_player).last.nil?
@@ -44,7 +44,6 @@
         = prettify(last_won.to_s[0,1])
       .suit
         = prettify(last_won.suit[0,1])  
-    .spacer
 .deck
   %br
   -unless @game.deck.empty?
@@ -84,7 +83,7 @@
           .suit
             = prettify(card.suit[0,1])
           %a.link{:href => "/game/#{@game.id}/#{@player.id}/#{card.to_s}"}
-  .box{:style => "float:left"}
+  .box
     Used
     %br      
     -if @game.played(@player).empty?
@@ -98,8 +97,8 @@
             =prettify(card.to_s[0,1])
           .suit
             =prettify(card.suit[0,1])
-    .spacer
-  .box{:style => "float:left"}
+  .spacer
+  .box
     Won
     %br
     -if @game.won(@player).empty?

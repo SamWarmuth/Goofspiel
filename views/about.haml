@@ -1,0 +1,74 @@
+.container{:style => "text-align: center"}
+  %h1 What is this 'goofspiel' thing anyway?
+      
+  .descriptor
+    %blockquote{:style => "text-align: justify; width: 500px;margin-left: auto; margin-right:auto;"}
+      "Goofspiel, also known as The Game of Pure Strategy or GOPS, is a card game for two or more players. It was invented by Merrill Flood while at Princeton University. It is simple to learn and play, but has a large degree of tactical depth. It is popular with game theorists because, as a game of pure strategy, it is susceptible to analysis."
+      %br
+      —
+      %a{:href => "http://en.wikipedia.org/wiki/Goofspiel"} Goofspiel Wikipedia entry.
+  %h3{:style => "margin-bottom: 0; margin-top: 30px"} How to Play
+  
+  %p{:style => "width: 500px;margin-left: auto; margin-right:auto;"}
+    First, split the cards into the four suits, and discard the clubs.
+    -@game.hand(:player).each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+    %br
+    -@game.hand(:other_player).each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+    %br
+    -@game.deck.deck.dup.concat(@game.bid_card).sort.each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+          
+  %p{:style => "text-align: left;width: 550px;margin-left: auto; margin-right:auto;"}
+    The spades are the "competition suit" — the Diamonds and Hearts each become a hand for a player. The spades are shuffled and placed between the players with one card turned up, like this:
+    -@game.hand(:player).each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+    %br
+    .card{:style => "margin: 0"}
+      .pattern
+    -@game.bid_card.each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+    %br
+    -@game.hand(:other_player).each do |card|
+      .card{:style => "color: #{font_color(card)};"}
+        .top_val
+          =prettify(card.to_s[0,1])
+        .bot_val
+          =prettify(card.to_s[0,1])
+        .suit
+          =prettify(card.suit[0,1])
+  %p{:style => "text-align: left;width: 550px;margin-left: auto; margin-right:auto;"}
+    Play proceeds in a series of rounds. The players make "closed bids" for the upturned card (in this case, the #{@game.bid_card.first.pretty}) by selecting a card from their hand (keeping their choice secret from their opponent). Once these cards are selected, they are simultaneously revealed, and the player making the highest bid takes the competition card.
+  %p{:style => "text-align: left;width: 550px;margin-left: auto; margin-right:auto;"}
+    In the event of a tie, the contested card "rolls over" to the next round.

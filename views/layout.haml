@@ -9,5 +9,6 @@
   -path = request.path_info.downcase
   -if path.include?("dashboard")
     <META HTTP-EQUIV="refresh" CONTENT="5">
-%body
-  =yield
+%body{:style => "margin-left: 15px;"}
+  .main
+    =yield
